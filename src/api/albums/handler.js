@@ -76,7 +76,7 @@ class AlbumsHandler {
 
       return {
         status: 'success',
-        message: 'ALbum berhasil diperbarui',
+        message: 'Album berhasil diperbarui',
       };
     } catch (error) {
       const response = h.response({

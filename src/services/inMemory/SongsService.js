@@ -9,11 +9,9 @@ class SongsService {
     title, year, performer, genre, duration,
   }) {
     const id = nanoid(16);
-    const createdAt = new Date().toISOString();
-    const updatedAt = createdAt;
 
     const newSong = {
-      id, title, year, performer, genre, duration, createdAt, updatedAt,
+      id, title, year, performer, genre, duration,
     };
 
     console.log(newSong);
@@ -22,7 +20,7 @@ class SongsService {
     const isSuccess = this._songs.filter((song) => song.id === id).length > 0;
 
     if (!isSuccess) {
-      throw new Error('Song gagal ditambahkan');
+      throw new Error('Lagu gagal ditambahkan');
     }
 
     return id;
@@ -35,7 +33,7 @@ class SongsService {
   getSongById(id) {
     const song = this._songs.filter((n) => n.id === id)[0];
     if (!song) {
-      throw new Error('Song tidak ditemukan');
+      throw new Error('Lagu tidak ditemukan');
     }
     return song;
   }
@@ -46,10 +44,8 @@ class SongsService {
     const index = this._songs.findIndex((song) => song.id === id);
 
     if (index === -1) {
-      throw new Error('Gagal memperbarui catatan. Id tidak ditemukan');
+      throw new Error('Gagal memperbarui lagu. Id tidak ditemukan');
     }
-
-    const updatedAt = new Date().toISOString();
 
     this._songs[index] = {
       ...this._songs[index],
@@ -58,14 +54,13 @@ class SongsService {
       genre,
       performer,
       duration,
-      updatedAt,
     };
   }
 
   deleteSongById(id) {
     const index = this._songs.findIndex((song) => song.id === id);
     if (index === -1) {
-      throw new Error('Song gagal dihapus. Id tidak ditemukan');
+      throw new Error('Lagu gagal dihapus. Id tidak ditemukan');
     }
     this._songs.splice(index, 1);
   }

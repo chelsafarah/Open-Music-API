@@ -21,7 +21,7 @@ class SongsHandler {
 
       const response = h.response({
         status: 'success',
-        message: 'Song berhasil ditambahkan',
+        message: 'Lagu berhasil ditambahkan',
         data: {
           songId,
         },
@@ -80,7 +80,7 @@ class SongsHandler {
 
       return {
         status: 'success',
-        message: 'ALbum berhasil diperbarui',
+        message: 'Lagu berhasil diperbarui',
       };
     } catch (error) {
       const response = h.response({
@@ -98,7 +98,7 @@ class SongsHandler {
       this._service.deleteSongById(id);
       return {
         status: 'success',
-        message: 'Song berhasil dihapus',
+        message: 'Lagu berhasil dihapus',
       };
     } catch (error) {
       const response = h.response({
