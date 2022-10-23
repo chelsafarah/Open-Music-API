@@ -4,8 +4,9 @@ const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
 class AlbumsService {
-  constructor() {
+  constructor(songsService) {
     this._pool = new Pool();
+    this._songsService = songsService;
   }
 
   async addAlbum({ name, year }) {
@@ -40,14 +41,9 @@ class AlbumsService {
     if (!result.rows.length) {
       throw new NotFoundError('Album tidak ditemukan');
     }
-    const getAlbum = result.rows[0];
-    const query2 = {
-      text: 'SELECT id,title,performer FROM songs WHERE album_id = $1',
-      values: [id],
-    };
-    const getSongs = await this._pool.query(query2);
-    getAlbum.songs = getSongs.rows;
-    return getAlbum;
+    const album = result.rows[0];
+    album.songs = await this._songsService.getSongByAlbumId(id);
+    return album;
   }
 
   async editAlbumById(id, { name, year }) {
