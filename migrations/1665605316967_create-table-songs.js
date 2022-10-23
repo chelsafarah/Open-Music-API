@@ -9,7 +9,7 @@ exports.up = (pgm) => {
       primaryKey: true,
     },
     title: {
-      type: 'TEXT',
+      type: 'VARCHAR(100)',
       notNull: true,
     },
     year: {
@@ -29,6 +29,8 @@ exports.up = (pgm) => {
     },
     album_id: {
       type: 'TEXT',
+      references: '"albums"',
+      onDelete: 'cascade',
     },
   });
 };
