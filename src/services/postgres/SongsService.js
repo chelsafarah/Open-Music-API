@@ -27,22 +27,22 @@ class SongsService {
     return result.rows[0].id;
   }
 
-  async getSongs(title, performer) {
-    const result = await this._pool.query('SELECT * FROM songs');
-    let getListSongs = result.rows.map(mapDBToModel);
+  async getSongs({ title, performer }) {
+    let theTitle = '%';
+    let thePerformer = '%';
 
     if (title !== undefined) {
-      getListSongs = getListSongs.filter(
-        (n) => n.title.toLowerCase().includes(title.toLowerCase()),
-      );
+      theTitle = `%${title}%`;
     }
 
     if (performer !== undefined) {
-      getListSongs = getListSongs.filter(
-        (n) => n.performer.toLowerCase().includes(performer.toLowerCase()),
-      );
+      thePerformer = `%${performer}%`;
     }
-    return getListSongs;
+
+    const query = `SELECT id, title, performer FROM songs WHERE title ILIKE '${theTitle}' AND performer ILIKE '${thePerformer}'`;
+
+    const result = await this._pool.query(query);
+    return result.rows.map(mapDBToModel);
   }
 
   async getSongById(id) {
