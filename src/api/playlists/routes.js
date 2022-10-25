@@ -23,30 +23,30 @@ const routes = (handler) => [
       auth: 'musicsapp_jwt',
     },
   },
-  // {
-  //   method: 'POST',
-  //   path: '/playlists/{id}/songs',
-  //   handler: handler.postPlaylistSongHandler,
-  //   options: {
-  //     auth: 'musicsapp_jwt',
-  //   },
-  // },
-  // {
-  //   method: 'GET',
-  //   path: '/playlists/{id}/songs',
-  //   handler: handler.getPlaylistSongsByIdHandler,
-  //   options: {
-  //     auth: 'musicsapp_jwt',
-  //   },
-  // },
-  // {
-  //   method: 'DELETE',
-  //   path: '/playlists/{id}/songs',
-  //   handler: handler.deletePlaylistSongByIdHandler,
-  //   options: {
-  //     auth: 'musicsapp_jwt',
-  //   },
-  // },
+  {
+    method: 'POST',
+    path: '/playlists/{id}/songs',
+    handler: handler.postPlaylistSongHandler,
+    options: {
+      auth: 'musicsapp_jwt',
+    },
+  },
+  {
+    method: 'GET',
+    path: '/playlists/{id}/songs',
+    handler: handler.getPlaylistSongsHandler,
+    options: {
+      auth: 'musicsapp_jwt',
+    },
+  },
+  {
+    method: 'DELETE',
+    path: '/playlists/{id}/songs',
+    handler: handler.deleteSongInPlaylistHandler,
+    options: {
+      auth: 'musicsapp_jwt',
+    },
+  },
 ];
 
 module.exports = routes;

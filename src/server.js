@@ -34,7 +34,7 @@ const init = async () => {
   const songsService = new SongsService();
   const albumsService = new AlbumsService(songsService);
   const usersService = new UsersService();
-  const playlistsService = new PlaylistsService();
+  const playlistsService = new PlaylistsService(songsService);
   const authenticationsService = new AuthenticationsService();
 
   const server = Hapi.server({
