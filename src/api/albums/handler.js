@@ -30,11 +30,7 @@ class AlbumsHandler {
     return {
       status: 'success',
       data: {
-        albums: albums.map((album) => ({
-          id: album.id,
-          name: album.name,
-          year: album.year,
-        })),
+        albums,
       },
     };
   }
