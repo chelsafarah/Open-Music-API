@@ -105,6 +105,37 @@ class PlaylistsService {
     }
   }
 
+  async addPlaylistActivity(playlistId, songId, userId, action) {
+    const id = nanoid(16);
+    const time = new Date().toISOString();
+
+    const query = {
+      text: 'INSERT INTO playlist_activities VALUES($1, $2, $3, $4, $5, $6) RETURNING id',
+      values: [id, playlistId, songId, userId, action, time],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rows[0].id) {
+      throw new NotFoundError('Gagal menambahkan aktivitas playlist');
+    }
+
+    return result.rows[0].id;
+  }
+
+  async getPlaylistActivities(playlistId) {
+    const query = {
+      text: `SELECT users.username, songs.title, playlist_activities.action, playlist_activities.time
+      FROM playlist_activities
+      LEFT JOIN users ON users.id = playlist_activities.user_id
+      LEFT JOIN songs ON songs.id = playlist_activities.song_id
+      WHERE playlist_activities.playlist_id = $1`,
+      values: [playlistId],
+    };
+    const getActivities = await this._pool.query(query);
+    return getActivities.rows;
+  }
+
   async verifyPlaylistOwner(id, owner) {
     const query = {
       text: 'SELECT * FROM playlists WHERE id = $1',
